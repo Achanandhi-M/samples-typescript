@@ -20,5 +20,6 @@ jobs:
       run: |
         curl --silent -O -L https://keploy.io/install.sh && source install.sh
         sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+        cd express-mongoose
         npm install
         keploy test -c "node src/app.js"
