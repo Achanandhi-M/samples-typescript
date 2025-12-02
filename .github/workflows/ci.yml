@@ -1,0 +1,25 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Commit
+      uses: actions/checkout@v4
+    - name: Set up Node
+      uses: actions/setup-node@v5
+      with:
+        node-version: '20.0.0'
+
+    - name: Keploy Tests
+      id: keploy-run-test
+      working-directory: ./express-mongoose 
+      run: |
+        curl --silent -O -L https://keploy.io/install.sh && source install.sh
+        sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+        npm install
+        keploy test -c "node src/app.js"
